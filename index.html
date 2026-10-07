@@ -609,6 +609,68 @@ function addCheck() {
         );
 
 
+    /*
+    Get values from Check 1.
+
+    Only copy:
+    - Bank
+    - Branch
+    - Check Amount
+    - Fund Source
+
+    Do NOT copy:
+    - Check Date
+    - Check No.
+    */
+
+    let copiedBank = "";
+    let copiedBranch = "";
+    let copiedAmount = "";
+    let copiedFundSource = "";
+
+
+    const firstCard =
+        document.querySelector(
+            ".check-card"
+        );
+
+
+    if (firstCard) {
+
+        copiedBank =
+            firstCard
+                .querySelector(
+                    ".bank"
+                )
+                .value;
+
+
+        copiedBranch =
+            firstCard
+                .querySelector(
+                    ".branch"
+                )
+                .value;
+
+
+        copiedAmount =
+            firstCard
+                .querySelector(
+                    ".check-amount"
+                )
+                .value;
+
+
+        copiedFundSource =
+            firstCard
+                .querySelector(
+                    ".fund-source"
+                )
+                .value;
+
+    }
+
+
     const card =
         document.createElement(
             "div"
@@ -643,6 +705,8 @@ function addCheck() {
             <div class="check-grid">
 
 
+                <!-- BANK -->
+
                 <div class="form-group">
 
                     <label>
@@ -653,11 +717,15 @@ function addCheck() {
                     </label>
 
                     <select class="bank">
+
                         ${getBankOptions()}
+
                     </select>
 
                 </div>
 
+
+                <!-- BRANCH -->
 
                 <div class="form-group">
 
@@ -672,10 +740,13 @@ function addCheck() {
                         type="text"
                         class="branch"
                         placeholder="E.G BGC"
+                        value="${copiedBranch}"
                     >
 
                 </div>
 
+
+                <!-- CHECK DATE -->
 
                 <div class="form-group">
 
@@ -694,6 +765,8 @@ function addCheck() {
                 </div>
 
 
+                <!-- CHECK AMOUNT -->
+
                 <div class="form-group">
 
                     <label>
@@ -709,11 +782,14 @@ function addCheck() {
                         min="0.01"
                         step="0.01"
                         placeholder="100000"
+                        value="${copiedAmount}"
                         oninput="updateSummary()"
                     >
 
                 </div>
 
+
+                <!-- CHECK NUMBER -->
 
                 <div class="form-group">
 
@@ -733,6 +809,8 @@ function addCheck() {
                 </div>
 
 
+                <!-- FUND SOURCE -->
+
                 <div class="form-group">
 
                     <label>
@@ -743,7 +821,9 @@ function addCheck() {
                     </label>
 
                     <select class="fund-source">
+
                         ${getFundSourceOptions()}
+
                     </select>
 
                 </div>
@@ -760,11 +840,43 @@ function addCheck() {
     );
 
 
+    /*
+    Set copied dropdown values
+    after the HTML is created.
+    */
+
+    const newBank =
+        card.querySelector(
+            ".bank"
+        );
+
+
+    const newFundSource =
+        card.querySelector(
+            ".fund-source"
+        );
+
+
+    if (copiedBank) {
+
+        newBank.value =
+            copiedBank;
+
+    }
+
+
+    if (copiedFundSource) {
+
+        newFundSource.value =
+            copiedFundSource;
+
+    }
+
+
     renumberChecks();
 
     updateSummary();
 }
-
 
 /* =========================================================
    REMOVE CHECK
